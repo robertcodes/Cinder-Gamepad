@@ -1,4 +1,5 @@
-#include "cinder/app/AppBasic.h"
+#include "cinder/app/App.h"
+#include "cinder/app/RendererGl.h"
 
 // Gamepad block is a C library, so must use extern "C" to include from C++
 extern "C" {
@@ -52,15 +53,22 @@ void onDeviceRemoved(struct Gamepad_device * device, void * context)
 }
 
 // We'll create a new Cinder Application by deriving from the AppBasic class
-class BasicApp : public AppBasic 
+class BasicApp : public App
 {
   public:
+    static void prepare( Settings *settings );
+
     void setup();
     void shutdown();
     void keyDown( KeyEvent event );
     void update();
     void draw();
 };
+
+void BasicApp::prepare( Settings *settings )
+{
+    settings->setTitle( "GamepadTest" );
+}
 
 void BasicApp::setup()
 {
@@ -106,4 +114,4 @@ void BasicApp::draw()
 }
 
 // This line tells Cinder to actually create the application
-CINDER_APP_BASIC( BasicApp, RendererGl )
+CINDER_APP( BasicApp, RendererGl( RendererGl::Options().msaa( 0 ) ), BasicApp::prepare )
