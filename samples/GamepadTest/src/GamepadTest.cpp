@@ -76,7 +76,8 @@ void BasicApp::setup()
     Gamepad_deviceRemoveFunc(onDeviceRemoved, (void *) 0x2);
     Gamepad_buttonDownFunc(onButtonDown, (void *) 0x3);
     Gamepad_buttonUpFunc(onButtonUp, (void *) 0x4);
-    Gamepad_axisMoveFunc(onAxisMoved, (void *) 0x5);
+    // Disabling axis logging since we only have buttons
+    //Gamepad_axisMoveFunc(onAxisMoved, (void *) 0x5);
     Gamepad_init();
 }
 
